@@ -92,10 +92,12 @@ int	free_map(char **map)
 
 int	print_map(char **map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
+
 	i = -1;
-	while (map[++i]){
+	while (map[++i])
+	{
 		j = -1;
 		while (map[i][++j])
 			printf("%c", map[i][j]);

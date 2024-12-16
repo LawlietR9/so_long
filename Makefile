@@ -5,6 +5,8 @@ OBJ_FILES = $(SRC_FILES:.c=.o)
 OBJ = $(addprefix obj/,$(OBJ_FILES)) $(GNL_SRCS:.c=.o)
 LIBFT =  libft/libft.a
 LIBFTPRINF = ft_printf/libftprintf.a
+MLX = minilibx/libmlx_linux.a
+MLX_FLAGS = 
 GNL_SRCS = $(addprefix get_next_line/, get_next_line.c get_next_line_utils.c)
 
 CC = cc
@@ -15,7 +17,7 @@ UNAME_S := $(shell uname -s)
 FSANITIZE = -g -fsanitize=address
 
 ifeq ($(UNAME_S),Linux)
-	MLX = -L/minilibx-linux -lmlx -lXext -lX11 -lm
+	MLX =  -L ./minilibx-linux -lmlx -lXext -lX11 -lm
 else
 	MLX = -lmlx -framework OpenGL -framework AppKit
 endif
@@ -23,13 +25,13 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $^ -o $@ $(CFLAGS) $(INCLUDE) -g
+	$(CC) $^ -o $@ $(CFLAGS) $(INCLUDE) -g $(MLX)
 
 obj/%.o: src/%.c
 	make -C libft
 	make -C ft_printf
 	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@ -g
+	$(CC) -I./minilibx-linux $(CFLAGS) -c $< -o $@ -g
 
 clean:
 	make -C libft clean

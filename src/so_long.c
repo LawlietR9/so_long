@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kenito <kenito@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/19 22:30:23 by kenito            #+#    #+#             */
-/*   Updated: 2023/12/19 22:30:23 by kenito           ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   so_long.c										  :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: kenito <kenito@student.42.fr>			  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2023/12/19 22:30:23 by kenito			#+#	#+#			 */
+/*   Updated: 2023/12/19 22:30:23 by kenito		   ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
@@ -62,7 +62,8 @@ t_game	*init_game(t_game *game, int fd)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		error_message(game, "mlx_init() failed.");
-	game->win = mlx_new_window(game->mlx, game->width * SIZE, (game->height + 2) * SIZE, "aooni");
+	game->win = mlx_new_window(game->mlx,
+			game->width * SIZE, (game->height + 2) * SIZE, "aooni");
 	if (!game->win)
 		error_message(game, "mlx_new_window() failed.");
 	init_sprite(game);
@@ -90,11 +91,3 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(game->mlx, update, (void *)game);
 	mlx_loop(game->mlx);
 }
-
-void end(void)__attribute__((destructor));
-
-void end(void)
-{
-    system("leaks so_long");
-}
-

@@ -58,20 +58,19 @@ typedef struct s_chara
 
 typedef struct s_game
 {
-	void	*mlx;
-	void	*win;
-	char	**map;
+	void		*mlx;
+	void		*win;
+	char		**map;
 	t_sprite	*sprite;
-	t_chara	*hiroshi;
-	t_chara	*aooni;
-
-	int		frame;
-	int		moves;
-	int		height;
-	int		width;
-	int		exit_x;
-	int		exit_y;
-	int		collectibles;
+	t_chara		*hiroshi;
+	t_chara		*aooni;
+	int			frame;
+	int			moves;
+	int			height;
+	int			width;
+	int			exit_x;
+	int			exit_y;
+	int			collectibles;
 }	t_game;
 
 int		error_message(t_game *game, char *detail);
@@ -91,19 +90,19 @@ void	explore_map(char **map, int i, int j);
 
 int		key_hook(int key, t_game *game);
 int		key_press(int key, t_game *game);
-int 	key_release(int key, t_game *game);
+int		key_release(int key, t_game *game);
 
-int 	move_down(t_game *game, t_chara *chara);
-int 	move_left(t_game *game, t_chara *chara);
-int 	move_right(t_game *game, t_chara *chara);
-int 	move_up(t_game *game, t_chara *chara);
+int		move_down(t_game *game, t_chara *chara);
+int		move_left(t_game *game, t_chara *chara);
+int		move_right(t_game *game, t_chara *chara);
+int		move_up(t_game *game, t_chara *chara);
 int		move_random(t_game *game, t_chara *chara);
 
 void	*xpm_alpha(t_game *game, char *file_path);
 int		init_sprite(t_game *game);
 int		init_hiroshi(t_game *game, t_chara *chara);
 int		init_aooni(t_game *game, t_chara *chara);
-int 	free_sprite(t_game *game);
+int		free_sprite(t_game *game);
 int		free_chara(t_game *game, t_chara *chara);
 
 int		mlx_put(t_game *game, void *img, int x, int y);
