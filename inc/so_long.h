@@ -65,7 +65,6 @@ typedef struct s_game
 	t_chara		*hiroshi;
 	t_chara		*aooni;
 	int			frame;
-	int			moves;
 	int			height;
 	int			width;
 	int			exit_x;
@@ -75,17 +74,18 @@ typedef struct s_game
 
 int		error_message(t_game *game, char *detail);
 int		end_game(t_game *game, char *detail);
+void	init_game(t_game *game, int fd);
 
 int		init_map(t_game *game, int fd);
 char	*remove_char(char *str, char c);
 int		find_cordinate(char **map, char c, int *x, int *y);
-int		free_map(char **map);
+char	**copy_map(t_game *game);
 int		print_map(char **map);
 
 int		check_map(t_game *game);
+int		check_char(char **map);
 int		check_wall(t_game *game);
 int		count_char(char **map, char c);
-char	**copy_map(t_game *game);
 void	explore_map(char **map, int i, int j);
 
 int		key_hook(int key, t_game *game);
@@ -102,8 +102,10 @@ void	*xpm_alpha(t_game *game, char *file_path);
 int		init_sprite(t_game *game);
 int		init_hiroshi(t_game *game, t_chara *chara);
 int		init_aooni(t_game *game, t_chara *chara);
+
 int		free_sprite(t_game *game);
 int		free_chara(t_game *game, t_chara *chara);
+int		free_map(char **map);
 
 int		mlx_put(t_game *game, void *img, int x, int y);
 int		put_map(t_game *game);

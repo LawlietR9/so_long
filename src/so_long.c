@@ -52,7 +52,7 @@ int	end_game(t_game *game, char *detail)
 	exit(EXIT_SUCCESS);
 }
 
-t_game	*init_game(t_game *game, int fd)
+void	init_game(t_game *game, int fd)
 {
 	if (fd < 0)
 		error_message(game, "File Not Found.");
@@ -75,7 +75,6 @@ t_game	*init_game(t_game *game, int fd)
 	if (!game->aooni)
 		error_message(game, "Failed to allocate memory.");
 	init_aooni(game, game->aooni);
-	return (game);
 }
 
 int	main(int argc, char **argv)
@@ -85,7 +84,14 @@ int	main(int argc, char **argv)
 	t_game *(game) = (t_game *)malloc(sizeof(t_game));
 	if (!game)
 		error_message(game, "Failed to allocate memory.");
-	game = init_game(game, open(argv[1], O_RDONLY));
+	game->mlx = NULL;
+	game->win = NULL;
+	game->sprite = NULL;
+	game->hiroshi = NULL;
+	game->aooni = NULL;
+	game->map = NULL;
+	game->frame = 0;
+	init_game(game, open(argv[1], O_RDONLY));
 	mlx_hook(game->win, 17, 0, end_game, (void *)game);
 	mlx_key_hook(game->win, key_hook, (void *)game);
 	mlx_loop_hook(game->mlx, update, (void *)game);

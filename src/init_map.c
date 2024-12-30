@@ -77,31 +77,40 @@ int	find_cordinate(char **map, char c, int *x, int *y)
 		}
 		(*y)++;
 	}
-	printf("Error\n%c is not found.\n", c);
 	return (1);
 }
 
-int	free_map(char **map)
+int	count_char(char **map, char c)
 {
+	int (num) = 0;
 	int (i) = 0;
+	int (j);
 	while (map[i])
-		free(map[i++]);
-	free(map);
-	return (0);
-}
-
-int	print_map(char **map)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (map[++i])
 	{
-		j = -1;
-		while (map[i][++j])
-			printf("%c", map[i][j]);
-		printf("\n");
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == c)
+				num++;
+			j++;
+		}
+		i++;
 	}
-	return (0);
+	return (num);
 }
+
+// int	print_map(char **map)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = -1;
+// 	while (map[++i])
+// 	{
+// 		j = -1;
+// 		while (map[i][++j])
+// 			printf("%c", map[i][j]);
+// 		printf("\n");
+// 	}
+// 	return (0);
+// }

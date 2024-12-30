@@ -12,11 +12,34 @@
 
 #include "../inc/so_long.h"
 
+void	*xpm_alpha(t_game *game, char *file_path)
+{
+	int (width), height, bpp, size_l, endian;
+	void *(img) = mlx_xpm_file_to_image(game->mlx, file_path, &width, &height);
+	if (!img)
+		error_message(game, "Failed to load image.");
+	int *(data) = (int *)mlx_get_data_addr(img, &bpp, &size_l, &endian);
+	int (x), y = 0;
+	while (y < height)
+	{
+		x = 0;
+		while (x < width)
+		{
+			if (data[y * width + x] == 0x000000)
+				data[y * width + x] = 0xFF000000;
+			x++;
+		}
+		y++;
+	}
+	return (img);
+}
+
 int	init_hiroshi(t_game *game, t_chara *chara)
 {
 	find_cordinate(game->map, 'P', &chara->x, &chara->y);
 	chara->dir = DOWN;
 	chara->animation = 0;
+	chara->moves = 0;
 	chara->front[0] = xpm_alpha(game, "sprites/hiroshi/front_0.xpm");
 	chara->back[0] = xpm_alpha(game, "sprites/hiroshi/back_0.xpm");
 	chara->left[0] = xpm_alpha(game, "sprites/hiroshi/left_0.xpm");
@@ -33,6 +56,7 @@ int	init_aooni(t_game *game, t_chara *aooni)
 	find_cordinate(game->map, 'E', &aooni->x, &aooni->y);
 	aooni->dir = DOWN;
 	aooni->animation = 0;
+	aooni->moves = 0;
 	aooni->front[0] = xpm_alpha(game, "sprites/aooni/front_0.xpm");
 	aooni->back[0] = xpm_alpha(game, "sprites/aooni/back_0.xpm");
 	aooni->left[0] = xpm_alpha(game, "sprites/aooni/left_0.xpm");
@@ -56,31 +80,5 @@ int	init_sprite(t_game *game)
 	game->sprite->collect[1] = xpm_alpha(game, "sprites/collect_1.xpm");
 	game->sprite->collect[2] = xpm_alpha(game, "sprites/collect_2.xpm");
 	game->sprite->collect[3] = xpm_alpha(game, "sprites/collect_3.xpm");
-	return (0);
-}
-
-int	free_sprite(t_game *game)
-{
-	int (i) = 0;
-	mlx_destroy_image(game->mlx, game->sprite->exit);
-	mlx_destroy_image(game->mlx, game->sprite->floor);
-	mlx_destroy_image(game->mlx, game->sprite->wall);
-	while (i < 4)
-		mlx_destroy_image(game->mlx, game->sprite->collect[i++]);
-	return (0);
-}
-
-int	free_chara(t_game *game, t_chara *chara)
-{
-	int (i) = 0;
-	while (i < 2)
-	{
-		mlx_destroy_image(game->mlx, chara->front[i]);
-		mlx_destroy_image(game->mlx, chara->back[i]);
-		mlx_destroy_image(game->mlx, chara->left[i]);
-		mlx_destroy_image(game->mlx, chara->right[i]);
-		i++;
-	}
-	free(chara);
 	return (0);
 }

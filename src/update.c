@@ -23,7 +23,7 @@ int	put_map(t_game *game)
 {
 	char **(map) = game->map;
 	int (i) = 0;
-	int (j) = 0;
+	int (j);
 	while (map[i])
 	{
 		j = 0;
@@ -111,9 +111,9 @@ int	update(t_game *game)
 	}
 	if (game->hiroshi->x == game->aooni->x
 		&& game->hiroshi->y == game->aooni->y)
-		end_game(game, "Game Over.");
+		end_game(game, "Game Over");
 	else if (game->map[game->hiroshi->y][game->hiroshi->x]
-			== 'E' && !game->collectibles)
+			== 'E' && game->collectibles == 0)
 		end_game(game, "Game Clear");
 	game->frame++;
 	return (0);

@@ -1,5 +1,5 @@
 NAME = so_long
-SRC_FILES = check_map.c key_hook.c init_map.c so_long.c sprites.c update.c moves.c utils.c
+SRC_FILES = check_map.c key_hook.c init_map.c so_long.c sprites.c update.c moves.c free.c
 SRC = $(addprefix src/,$(SRC_FILES)) 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 OBJ = $(addprefix obj/,$(OBJ_FILES)) $(GNL_SRCS:.c=.o)
